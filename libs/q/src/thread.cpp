@@ -19,12 +19,16 @@
 
 #include "detail/cpu.hpp"
 
+#if defined( LIBQ_ON_BSD ) || (defined( LIBQ_ON_LINUX ) && !defined( LIBQ_ON_GNU ))
+#   define USE_LOCAL_THREADNAME
+#endif
+
 #ifdef LIBQ_ON_WINDOWS
 #	include <windows.h>
 	static thread_local std::string threadname_;
 #elif defined( LIBQ_ON_OSX )
 #elif defined( LIBQ_ON_POSIX )
-#if defined( LIBQ_ON_BSD )
+#if defined( USE_LOCAL_THREADNAME )
 	static thread_local std::string threadname_;
 #endif
 #	include <pthread.h>
@@ -86,7 +90,7 @@ namespace detail {
 
 void set_thread_name( const std::string& name )
 {
-#if defined( LIBQ_ON_BSD )
+#if defined( USE_LOCAL_THREADNAME )
 
 	threadname_ = name;
 
@@ -142,8 +146,7 @@ void set_thread_name( const std::string& name )
 
 std::string get_thread_name( )
 {
-#if defined( LIBQ_ON_BSD )
-
+#if defined( USE_LOCAL_THREADNAME )
 	return threadname_;
 
 #elif defined( LIBQ_ON_POSIX )
