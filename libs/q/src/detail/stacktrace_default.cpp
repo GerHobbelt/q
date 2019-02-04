@@ -44,6 +44,9 @@ noexcept
 
 stacktrace default_stacktrace( ) noexcept
 {
+#if defined( LIBQ_ON_LINUX ) && !defined( LIBQ_ON_GNU )
+    return stacktrace( std::vector< stacktrace::frame >{ } );
+#else
 	static const std::size_t buflen = 128;
 	void* addresses[ buflen ];
 	std::size_t size = backtrace( addresses, buflen );
@@ -64,6 +67,7 @@ stacktrace default_stacktrace( ) noexcept
 	::free( raw_frames );
 
 	return stacktrace( std::move( frames ) );
+#endif
 }
 
 #endif
