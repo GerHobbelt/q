@@ -61,7 +61,7 @@ noexcept
 		return filename;
 
 #ifdef _WIN32
-	::GetModuleFileName( ( HINSTANCE )&__ImageBase, filename, PATH_MAX );
+	::GetModuleFileNameA( ( HINSTANCE )&__ImageBase, filename, PATH_MAX );
 #else // not _WIN32
 
 	silly_function( );

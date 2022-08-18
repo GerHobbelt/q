@@ -109,7 +109,7 @@ stacktrace default_stacktrace( ) noexcept
 		frame.frameno = i;
 
 		HMODULE mod;
-		if ( ::GetModuleHandleEx(
+		if ( ::GetModuleHandleExA(
 			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
 			reinterpret_cast< LPCSTR >( frame.addr ),
 			&mod
@@ -124,7 +124,7 @@ stacktrace default_stacktrace( ) noexcept
 			else
 			{
 				char name_buf[ MAX_PATH ];
-				if ( ::GetModuleFileName(
+				if ( ::GetModuleFileNameA(
 					mod, name_buf, MAX_PATH
 				) )
 				{

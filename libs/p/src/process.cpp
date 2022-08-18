@@ -17,7 +17,9 @@
 #include <p/process.hpp>
 
 #include <sys/types.h>
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 
 namespace p {
 
