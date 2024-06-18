@@ -44,6 +44,9 @@
 #	if defined( __ANDROID__ ) || defined( ANDROID )
 #		define LIBQ_ON_ANDROID
 #	endif
+#   if defined( __GLIBC__ )
+#       define LIBQ_ON_GNU
+#   endif
 #elif defined( __FreeBSD__ )
 #	define LIBQ_ON_FREEBSD
 #	define LIBQ_ON_BSD
